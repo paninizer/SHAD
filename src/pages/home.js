@@ -4,8 +4,7 @@ import '../App.css';
 function Home() {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(task => task.completed).length;
+  
 
   const addTask = () => {
     if (taskInput.trim() !== '') {
@@ -21,10 +20,7 @@ function Home() {
     setTasks(newTasks);
   };
 
-  const removeTask = (index) => {
-    const newTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
-    setTasks(newTasks);
-  };
+  // Add remove button function here 
 
   return (
     <div>
@@ -60,21 +56,13 @@ function Home() {
                     {task.completed ? 'Undo' : 'Complete'}
                   </button>
                   
-                  <button 
-                    onClick={() => removeTask(index)} 
-                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-                  >
-                    Remove
-                  </button>
+                  {/* Add a remove button here */}
                   
                 </div>
               </li>
             ))}
           </ul>
-          <div className="mb-4 text-center my-2 bg-red-300 rounded-full ">
-                  <p>Total Tasks: {totalTasks}</p>
-                  <p>Completed Tasks: {completedTasks}</p>
-          </div>
+          {/* Add total tasks counter and total completed counter */}
         </div>
       </div>
     </div>
