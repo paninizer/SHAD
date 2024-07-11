@@ -24,7 +24,7 @@ function Home() {
 
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-blue-500">
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
           <h1 className="text-2xl font-bold text-center mb-4">My To Do List</h1>
           <div className="flex mb-4">
