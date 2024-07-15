@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../App.css';
 
 function Home() {
@@ -31,17 +31,31 @@ function Home() {
   };
 
   // Add remove button function here 
+  const removeTask = (index) => {
+    const newTasks = tasks.filter((_task, taskIndex) => taskIndex !== index);
+    setTasks(newTasks);
+  }
 
   return (
     <div>
+      <div class = "flex bg-gray-800 text-white top-0 py-3 flex-wrap justify-around bg-silver">
+        <h1 class="text-3xl font-bold">ToDo List</h1>
+        <ul class = "flex gap-[40px]">
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/home">Home</a></li>
+        </ul>
+      </div>
+
       <div className="min-h-screen flex items-center justify-center bg-blue-500">
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
           <h1 className="text-2xl font-bold text-center mb-4">My To Do List</h1>
           {/* Add total tasks counter and total completed counter */}
 
-
-
-
+          <div className="mb-4 text-center my-2 bg-blue-300 rounded-full ">
+                  <p>Total Tasks: {tasks.length}</p>
+                  <p>Completed Tasks: {tasks.filter(task => task.completed).length}</p>
+          </div>
 
           <div className="flex mb-4">
             <input 
@@ -73,16 +87,16 @@ function Home() {
                   </button>
                   
                   {/* Add a remove button here */}
-                  
-
-
-
-
+                  <button 
+                    onClick={() => removeTask(index)}
+                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-700"
+                  >
+                    Remove
+                  </button>
                 </div>
               </li>
             ))}
           </ul>
-          
         </div>
       </div>
     </div>
