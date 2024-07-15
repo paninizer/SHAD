@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
+import Navbar from '../components/navbar';
 
 function Home() {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState('');
-  
-  // useEffect(() => {
-  //   const storedTasks = JSON.parse(localStorage.getItem('tasks'));
-  //   if (storedTasks) {
-  //     setTasks(storedTasks);
-  //   }
-  // }, []);
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(task => task.completed).length;
 
-  // useEffect(() => {
-  //   localStorage.setItem('tasks', JSON.stringify(tasks));
-  // }, [tasks]);
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+    if (storedTasks) {
+      setTasks(storedTasks);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   const addTask = () => {
     if (taskInput.trim() !== '') {
@@ -30,19 +33,21 @@ function Home() {
     setTasks(newTasks);
   };
 
-  // Add remove button function here 
-
+  const removeTask = (index) => {
+    const newTasks = tasks.filter((_, taskIndex) => taskIndex !== index);
+    setTasks(newTasks);
+  };
+  
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-blue-500">
+      <Navbar />
+      <div className="min-h-screen flex items-center justify-center min-w-screen">
         <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
           <h1 className="text-2xl font-bold text-center mb-4">My To Do List</h1>
-          {/* Add total tasks counter and total completed counter */}
-
-
-
-
-
+          <div className="mb-4 text-center my-2 bg-red-300 rounded-full ">
+                  <p>Total Tasks: {totalTasks}</p>
+                  <p>Completed Tasks: {completedTasks}</p>
+          </div>
           <div className="flex mb-4">
             <input 
               type="text" 
@@ -72,12 +77,13 @@ function Home() {
                     {task.completed ? 'Undo' : 'Complete'}
                   </button>
                   
-                  {/* Add a remove button here */}
+                  <button 
+                    onClick={() => removeTask(index)} 
+                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
                   
-
-
-
-
                 </div>
               </li>
             ))}
